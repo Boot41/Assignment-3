@@ -1,16 +1,18 @@
 // src/routes.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Loginpage from './views/Loginpage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './views/LandingPage';
 import Signuppage from './views/Signuppage';
+import NavBar from './components/NavBar'; // Adjust the import path if needed
 
 function AppRoutes() {
   return (
     <Router>
+      <NavBar /> {/* Include NavBar if you want it to be present on all pages */}
       <Routes>
-        <Route path="/login" element={<Loginpage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signuppage />} />
-
+        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );
