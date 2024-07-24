@@ -7,23 +7,29 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.7.2",
     "postcss": "^8.4.39",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.4.6",
     "web-vitals": "^2.1.4"
   },
+  
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+  "dev": "vite",
+  "build": "vite build",
+  "serve": "vite preview",
+  "storybook": "start-storybook -p 6006",
+  "build-storybook": "build-storybook"
+}
+
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -37,5 +43,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-essentials": "^8.2.5",
+    "@storybook/addon-interactions": "^8.2.5",
+    "@storybook/addon-links": "^8.2.5",
+    "@storybook/addon-onboarding": "^8.2.5",
+    "@storybook/blocks": "^8.2.5",
+    "@storybook/preset-create-react-app": "^8.2.5",
+    "@storybook/react": "^8.2.5",
+    "@storybook/react-webpack5": "^8.2.5",
+    "@storybook/test": "^8.2.5",
+    "eslint-plugin-storybook": "^0.8.0",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.2.5",
+    "webpack": "^5.93.0"
   }
 }
