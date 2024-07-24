@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar'; // Ensure the import path is correct
 
 function Signuppage() {
@@ -7,9 +8,13 @@ function Signuppage() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+    // Handle form submission (e.g., send data to the server)
+    // After successful form submission, redirect to the login page
+    navigate('/login');
   };
 
   return (

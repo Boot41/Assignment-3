@@ -1,11 +1,13 @@
 // src/views/LoginPage.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { mockLogin } from '../services/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
   useEffect(() => {
     // On component mount, check if user is in localStorage
@@ -25,14 +27,18 @@ function LoginPage() {
         if (rememberMe) {
           localStorage.setItem('user', JSON.stringify({ email }));
         }
-        // Handle successful login (e.g., save token, redirect user)
+        // Save the authentication token (if applicable)
+        localStorage.setItem('authToken', response.data.token);
+
+        // Redirect the user to another page (e.g., home page)
+        navigate('/home');
       } else {
         console.log('Login failed:', response.message);
-        // Handle login failure
+        // Handle login failure (e.g., show error message)
       }
     } catch (error) {
       console.error('Login error:', error);
-      // Handle error
+      // Handle error (e.g., show error message)
     }
   };
 
@@ -64,7 +70,9 @@ function LoginPage() {
           />
           <span className="ml-2">Remember Me</span>
         </label>
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+          Login
+        </button>
       </form>
     </div>
   );
