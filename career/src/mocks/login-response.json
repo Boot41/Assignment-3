@@ -6,6 +6,20 @@
         "id": "1",
         "email": "user@example.com",
         "name": "John Doe",
+        "password":"123",
+        "token": "mock-jwt-token"
+      }
+    }
+  }
+  {
+    "success": true,
+    "message": "Login successful",
+    "data": {
+      "user": {
+        "id": "2",
+        "email": "uthara@gmail.com",
+        "name": "Uthara Rajesh",
+        "password":"uthara",
         "token": "mock-jwt-token"
       }
     }

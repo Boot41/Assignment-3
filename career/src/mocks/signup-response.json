@@ -1,4 +1,4 @@
-{
+{ 
     "success": true,
     "message": "Signup successful",
     "data": {
@@ -9,4 +9,15 @@
       }
     }
   }
-  
+  {
+    "success": true,
+    "message": "Signup successful",
+    "data": {
+      "user": {
+        "id": "2",
+        "email": "uthara@gmail.com",
+        "name": "Uthara Rajesh"
+      }
+    }
+  }
+ 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import NavBar from '../components/NavBar'; // Ensure the import path is correct
+import NavBar from '../components/NavBar';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { mockLogin } from '../services/api';
 
 function Signuppage() {
   const [name, setName] = useState('');
@@ -7,9 +9,30 @@ function Signuppage() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate(); // Initialize navigate
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    
+    // Handle form submission logic here
+    try {
+      // Assuming mockLogin is an API call function
+      const response = await mockLogin({ name, email, password, dateOfBirth });
+
+      // Save response to a JSON file (Frontend only)
+      const blob = new Blob([JSON.stringify(response)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'signup-response.json';
+      a.click();
+      URL.revokeObjectURL(url);
+
+      // After successful form submission, navigate to the landing page
+      navigate('/landing'); // Use '/landing' or your target route
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
   };
 
   return (
