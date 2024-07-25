@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Signuppage.css';
 import NavBar from '../components/NavBar'; // Ensure the import path is correct
 
 function Signuppage() {
@@ -9,13 +7,9 @@ function Signuppage() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send data to the server)
-    // After successful form submission, redirect to the login page
-    navigate('/login');
+    // Handle form submission
   };
 
   return (
@@ -71,15 +65,13 @@ function Signuppage() {
                 <label className="text-gray-700 block mb-2" htmlFor="dateOfBirth">
                   DATE OF BIRTH
                 </label>
-                <select
+                <input
                   id="dateOfBirth"
+                  type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
                   className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                >
-                  <option value="">Select</option>
-                  {/* Add options here */}
-                </select>
+                />
               </div>
               <div className="flex items-center justify-center mt-4">
                 <button
