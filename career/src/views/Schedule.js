@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 function Schedule() {
   const [scheduleData, setScheduleData] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState({});
   const [analysis, setAnalysis] = useState('');
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -56,6 +57,16 @@ function Schedule() {
 
   const handleTaskResponseChange = (taskId, response) => {
     // Handle task response change, e.g., save to local state or API
+    // For demo purposes, we'll mark the task as completed in local state
+    setCompletedTasks((prev) => ({
+      ...prev,
+      [taskId]: true,
+    }));
+  };
+
+  const handleTaskClick = (task) => {
+    // Navigate to the task page (implementation needed)
+    navigate(`/tasks/${task.task_id}`);
   };
 
   return (
@@ -63,7 +74,13 @@ function Schedule() {
       <h2 className="text-2xl font-bold mb-4">Schedule and Tasks for {careerPath}</h2>
       <div className="grid grid-cols-2 gap-4">
         {scheduleData.map((item, index) => (
-          <div key={index} className="flex items-center">
+          <div
+            key={index}
+            className={`flex items-center p-4 rounded cursor-pointer transition-colors ${
+              completedTasks[item.task_id] ? 'bg-green-200' : 'bg-white hover:bg-gray-100'
+            }`}
+            onClick={() => handleTaskClick(item)}
+          >
             <div className="w-1/3">{item.time}</div>
             <div className="w-2/3">{item.task}</div>
           </div>

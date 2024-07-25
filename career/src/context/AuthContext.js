@@ -1,8 +1,8 @@
-// src/context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockLogin } from '../services/api';
 import { getRememberedUser, saveRememberedUser, clearRememberedUser } from '../services/auth';
+
 
 const AuthContext = createContext();
 

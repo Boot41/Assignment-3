@@ -1,15 +1,16 @@
-// src/services/auth.js
-import { useAuth } from '../context/AuthContext'; // Adjusted import path
 
-export const saveRememberedUser = (userDetails) => {
-  localStorage.setItem('rememberedUser', JSON.stringify(userDetails));
-};
-
-export const getRememberedUser = () => {
-  const rememberedUser = localStorage.getItem('rememberedUser');
-  return rememberedUser ? JSON.parse(rememberedUser) : null;
-};
-
-export const clearRememberedUser = () => {
-  localStorage.removeItem('rememberedUser');
-};
+export function getRememberedUser() {
+    const user = localStorage.getItem('rememberedUser');
+    return user ? JSON.parse(user) : null;
+  }
+  
+  // Function to save the remembered user to local storage
+  export function saveRememberedUser(user) {
+    localStorage.setItem('rememberedUser', JSON.stringify(user));
+  }
+  
+  // Function to clear the remembered user from local storage
+  export function clearRememberedUser() {
+    localStorage.removeItem('rememberedUser');
+  }
+  
