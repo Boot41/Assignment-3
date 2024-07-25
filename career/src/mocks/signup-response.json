@@ -5,7 +5,8 @@
       "user": {
         "id": "1",
         "email": "user@example.com",
-        "name": "John Doe"
+        "name": "John Doe",
+        "password":"123"
       }
     }
   }
@@ -16,7 +17,8 @@
       "user": {
         "id": "2",
         "email": "uthara@gmail.com",
-        "name": "Uthara Rajesh"
+        "name": "Uthara Rajesh",
+        "password":"uthara"
       }
     }
   }
