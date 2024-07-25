@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginPage from './views/Loginpage';
-import LandingPage from './views/LandingPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Signuppage from './views/Signuppage';
+import LoginPage from './views/Loginpage'; // Ensure the filename matches
+import LandingPage from './views/LandingPage';
 import CareerPath from './views/CareerPath';
-import Schedule from './views/Schedule'; // Capitalize Schedule to match component name
+import Schedule from './views/Schedule'; // Ensure capitalization matches component
 import Task from './views/Task';
-import NavBar from './components/NavBar'; // Adjust the import path if needed
-import { useAuth } from './context/AuthContext'; // Import the AuthContext
+import NavBar from './components/NavBar'; // Ensure the path is correct
+import { useAuth } from './context/AuthContext';
 
 function AppRoutes() {
-  const { isLoggedIn } = useAuth(); // Get isLoggedIn from context
+  const { isLoggedIn } = useAuth(); // Get authentication status
 
   return (
     <Router>
@@ -21,7 +21,7 @@ function AppRoutes() {
         <Route path="/career" element={isLoggedIn ? <CareerPath /> : <LoginPage />} />
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/task" element={<Task />} />
-        <Route path="/schedule" element={<Schedule />} /> {/* Capitalize Schedule */}
+        <Route path="/schedule" element={<Schedule />} /> {/* Ensure this is correctly named */}
         {/* Add more routes as needed */}
       </Routes>
     </Router>

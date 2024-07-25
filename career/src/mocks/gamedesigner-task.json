@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Tasks retrieved successfully",
+    "data": {
+      "tasks": [
+        {
+          "task_id": "1",
+          "task_name": "Design game mechanics",
+          "description": "Develop and document the core game mechanics.",
+          "deadline": "2024-08-15"
+        },
+        {
+          "task_id": "2",
+          "task_name": "Create prototypes",
+          "description": "Build prototypes to test gameplay and mechanics.",
+          "deadline": "2024-09-15"
+        },
+        {
+          "task_id": "3",
+          "task_name": "User testing",
+          "description": "Conduct user testing and gather feedback.",
+          "deadline": "2024-10-15"
+        }
+      ]
+    }
+  }
+  

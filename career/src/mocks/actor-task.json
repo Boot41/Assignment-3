@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Tasks retrieved successfully",
+    "data": {
+      "tasks": [
+        {
+          "task_id": "1",
+          "task_name": "Attend auditions",
+          "description": "Participate in auditions for upcoming roles.",
+          "deadline": "2024-07-15"
+        },
+        {
+          "task_id": "2",
+          "task_name": "Rehearse lines",
+          "description": "Rehearse lines for the upcoming play.",
+          "deadline": "2024-08-15"
+        },
+        {
+          "task_id": "3",
+          "task_name": "Perform in play",
+          "description": "Perform in the scheduled play productions.",
+          "deadline": "2024-09-15"
+        }
+      ]
+    }
+  }
+  

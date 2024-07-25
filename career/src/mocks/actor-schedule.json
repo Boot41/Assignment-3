@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Schedule retrieved successfully",
+    "data": {
+      "schedule": [
+        {
+          "event_id": "1",
+          "event_name": "Film Auditions",
+          "description": "Attend auditions for various film roles.",
+          "date": "2024-07-25"
+        },
+        {
+          "event_id": "2",
+          "event_name": "Theater Performance",
+          "description": "Perform in a local theater production.",
+          "date": "2024-08-15"
+        },
+        {
+          "event_id": "3",
+          "event_name": "Film Premiere",
+          "description": "Attend the premiere of the latest film.",
+          "date": "2024-09-05"
+        }
+      ]
+    }
+  }
+  

@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "Analysis retrieved successfully",
+    "data": {
+      "user": {
+        "id": "1",
+        "name": "Bob White",
+        "score": 78,
+        "role": "Interior Designer"
+      },
+      "comparison": [
+        {
+          "role": "Interior Designer",
+          "average_score": 78,
+          "user_score": 78,
+          "percentage_above_average": 0
+        }
+      ]
+    }
+  }
+  

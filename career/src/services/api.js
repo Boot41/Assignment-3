@@ -1,4 +1,4 @@
-import mockUsers from '../mocks/login-response.json'; // Import your mock user data
+import mockUsers from '../mocks/login-response.json'; // Ensure you have the correct path
 
 // Mock login function that validates user credentials against mock data
 export const mockLogin = async (email, password) => {

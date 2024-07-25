@@ -1,34 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function CareerFitAnalysis() {
-  const chartData = [
-    { label: 'Situation Judgement', me: 10, others: 15 },
-    { label: 'Decision Making', me: 12, others: 14 },
-    { label: 'Emotional Intelligence', me: 18, others: 12 },
-  ];
+function TaskPage({ tasks }) {
+  const [taskResponses, setTaskResponses] = useState({});
+
+  const handleResponseChange = (taskId, response) => {
+    setTaskResponses(prevResponses => ({
+      ...prevResponses,
+      [taskId]: response
+    }));
+  };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Career Fit Analysis</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {chartData.map((data, index) => (
-          <div key={index} className="flex items-center">
-            <p className="text-gray-600">{data.label}</p>
-            <div className="flex-grow">
-              <div className="bg-gray-300 h-4 rounded-full">
-                <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${(data.me / 25) * 100}%` }} />
-              </div>
-            </div>
-            <p className="text-gray-600 ml-2">{data.others}</p>
-          </div>
+    <div className="bg-gray-100 p-4">
+      <h2 className="text-2xl font-bold mb-4">Tasks</h2>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.task_id} className="mb-4">
+            <div className="font-semibold">{task.task_name}</div>
+            <p>{task.description}</p>
+            <textarea
+              placeholder="Provide your response here"
+              className="w-full mt-2 p-2 border rounded"
+              rows="4"
+              onChange={(e) => handleResponseChange(task.task_id, e.target.value)}
+            />
+          </li>
         ))}
-      </div>
-      <div className="flex justify-end">
-        <div className="bg-blue-500 text-white rounded-full p-2">76%</div>
-        <div className="ml-4 bg-gray-300 text-gray-700 rounded-full p-2">24%</div>
-      </div>
+      </ul>
     </div>
   );
 }
 
-export default CareerFitAnalysis;
+export default TaskPage;

@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Schedule retrieved successfully",
+    "data": {
+      "schedule": [
+        {
+          "event_id": "1",
+          "event_name": "Game Developers Conference",
+          "description": "Attend the conference to network and learn about new trends.",
+          "date": "2024-08-20"
+        },
+        {
+          "event_id": "2",
+          "event_name": "Prototype Testing",
+          "description": "Test game prototypes with potential users.",
+          "date": "2024-09-25"
+        },
+        {
+          "event_id": "3",
+          "event_name": "Game Release",
+          "description": "Release the final version of the game.",
+          "date": "2024-10-30"
+        }
+      ]
+    }
+  }
+  

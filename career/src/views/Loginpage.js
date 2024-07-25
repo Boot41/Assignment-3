@@ -1,38 +1,26 @@
+// src/views/LoginPage.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { mockLogin } from '../services/api';
-import { saveRememberedUser, clearRememberedUser } from '../services/auth';
+import { useAuth } from '../context/AuthContext';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleLogin = async (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
-    const response = await mockLogin(email, password);
-    if (response.success) {
-      if (rememberMe) {
-        saveRememberedUser({ email });
-      } else {
-        clearRememberedUser();
-      }
-      // Redirect to career path page
-      navigate('/career');
-    } else {
-      alert(response.message);
-    }
+    login(email, password, rememberMe);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-500 to-indigo-500 flex flex-col items-center justify-center py-8">
       <h1 className="text-4xl font-bold text-white text-center mb-8">Login</h1>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="w-full max-w-md">
         <div className="mb-4">
           <input
             type="email"
-            className="border border-gray-300 rounded-md p-4 w-full max-w-md"
+            className="border border-gray-300 rounded-md p-4 w-full"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -41,7 +29,7 @@ function LoginPage() {
         <div className="mb-4">
           <input
             type="password"
-            className="border border-gray-300 rounded-md p-4 w-full max-w-md"
+            className="border border-gray-300 rounded-md p-4 w-full"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { mockLogin } from '../services/api';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Signuppage() {
   const [name, setName] = useState('');
@@ -9,30 +8,17 @@ function Signuppage() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Handle form submission logic here
-    try {
-      // Assuming mockLogin is an API call function
-      const response = await mockLogin({ name, email, password, dateOfBirth });
 
-      // Save response to a JSON file (Frontend only)
-      const blob = new Blob([JSON.stringify(response)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'signup-response.json';
-      a.click();
-      URL.revokeObjectURL(url);
+    // Simulate saving user data to browser local storage
+    const userData = { name, email, password, dateOfBirth };
+    localStorage.setItem('user', JSON.stringify(userData));
 
-      // After successful form submission, navigate to the landing page
-      navigate('/landing'); // Use '/landing' or your target route
-    } catch (error) {
-      console.error('Error during signup:', error);
-    }
+    // Navigate to the login page after successful signup
+    navigate('/login');
   };
 
   return (
@@ -55,7 +41,7 @@ function Signuppage() {
                   placeholder="Jiara Martins"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -68,7 +54,7 @@ function Signuppage() {
                   placeholder="hello@reallygreatsite.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -81,7 +67,7 @@ function Signuppage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -93,7 +79,7 @@ function Signuppage() {
                   type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                 />
               </div>
               <div className="flex items-center justify-center mt-4">
@@ -105,6 +91,14 @@ function Signuppage() {
                 </button>
               </div>
             </form>
+            <div className="text-center mt-4">
+              <p className="text-gray-700">
+                Already a user?{' '}
+                <Link to="/login" className="text-blue-500 hover:text-blue-700">
+                  Login
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
