@@ -17,7 +17,10 @@ function Schedule() {
 
       // Fetch schedule data
       const scheduleFileName = `${careerPath}-schedule.json`;
-      const scheduleFilePath = `/mocks/${scheduleFileName}`;
+      // const scheduleFilePath = `/mocks/${scheduleFileName}`;
+      const scheduleFilePath = `/mocks/gamedesigner-schedule.json`;
+
+      console.log(scheduleFilePath)
 
       try {
         const scheduleResponse = await fetch(scheduleFilePath);
@@ -36,7 +39,7 @@ function Schedule() {
       }
 
       // Fetch tasks data
-      const tasksFileName = `${careerPath}-task.json`;
+      const tasksFileName = `gamedesigner-task.json`;
       const tasksFilePath = `/mocks/${tasksFileName}`;
 
       try {

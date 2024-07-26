@@ -9,6 +9,7 @@ import Schedule from './views/Schedule'; // Ensure capitalization matches compon
 import Task from './views/Task';
 import NavBar from './components/NavBar' // Ensure the path is correct
 import ProtectedRoute from './components/ProtectedRoute';
+import Schedule1 from './views/Schedule1';
 
 function AppRoutes() {
   // No need to get isLoggedIn here if it's not used
@@ -22,7 +23,8 @@ function AppRoutes() {
         <Route path="/landingpage" element={<LandingPage />} />
         <Route path="/task" element={<Task />} />
         <Route path="/schedule" element={<Schedule />} /> 
-        <Route path="analysis"  element={<CareerFitAnalysis />} />
+        <Route path="/analysis"  element={<CareerFitAnalysis />} />
+        <Route path="/trial"  element={<Schedule1 />} />
       </Routes>
     </>
   );
