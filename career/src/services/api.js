@@ -1,27 +1,40 @@
-import mockUsers from '../mocks/login-response.json'; // Ensure you have the correct path
-
 // Mock login function that validates user credentials against mock data
 export const mockLogin = async (email, password) => {
-  // Find the user with the matching email and password
-  const user = mockUsers.find(user => user.email === email && user.password === password);
+  try {
+    // Fetch mock users data
+    const response = await fetch('/mock/login-response.json'); // Updated path
+    if (!response.ok) {
+      throw new Error('Failed to fetch mock users data');
+    }
+    const mockUsers = await response.json();
 
-  if (user) {
-    return {
-      success: true,
-      message: 'Login successful',
-      data: {
-        user: {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          token: user.token
+    // Find the user with the matching email and password
+    const user = mockUsers.find(user => user.email === email && user.password === password);
+
+    if (user) {
+      return {
+        success: true,
+        message: 'Login successful',
+        data: {
+          user: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            token: user.token
+          }
         }
-      }
-    };
-  } else {
+      };
+    } else {
+      return {
+        success: false,
+        message: 'Invalid email or password'
+      };
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
     return {
       success: false,
-      message: 'Invalid email or password'
+      message: 'An error occurred during login'
     };
   }
 };
@@ -30,7 +43,10 @@ export const mockLogin = async (email, password) => {
 export const getCareerData = async () => {
   try {
     // Replace '/mockData.json' with the correct path to your mock data file
-    const response = await fetch('/mockData.json');
+    const response = await fetch('/mock/mockData.json'); // Ensure path is correct
+    if (!response.ok) {
+      throw new Error('Failed to fetch career data');
+    }
     const data = await response.json();
     return data;
   } catch (error) {

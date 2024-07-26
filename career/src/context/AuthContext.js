@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { mockLogin } from '../services/api';
 import { getRememberedUser, saveRememberedUser, clearRememberedUser } from '../services/auth';
 
-
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -16,26 +15,35 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const rememberedUser = getRememberedUser();
-    if (rememberedUser) {
-      setUser(rememberedUser);
-      setIsLoggedIn(true);
+    try {
+      const rememberedUser = getRememberedUser();
+      if (rememberedUser) {
+        setUser(rememberedUser);
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.error('Error retrieving remembered user:', error);
     }
   }, []);
 
   const login = async (email, password, rememberMe) => {
-    const response = await mockLogin(email, password);
-    if (response.success) {
-      setUser(response.user);
-      setIsLoggedIn(true);
-      if (rememberMe) {
-        saveRememberedUser(response.user);
+    try {
+      const response = await mockLogin(email, password);
+      if (response.success) {
+        setUser(response.user);
+        setIsLoggedIn(true);
+        if (rememberMe) {
+          saveRememberedUser(response.user);
+        } else {
+          clearRememberedUser();
+        }
+        navigate('/career');
       } else {
-        clearRememberedUser();
+        alert(response.message);
       }
-      navigate('/career');
-    } else {
-      alert(response.message);
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('An error occurred during login. Please try again.');
     }
   };
 
@@ -52,3 +60,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

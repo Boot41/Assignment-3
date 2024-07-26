@@ -5,11 +5,10 @@ function Schedule() {
   const [scheduleData, setScheduleData] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState({});
-  const [analysis, setAnalysis] = useState('');
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const careerPath = queryParams.get('careerPath'); // Get career path from query parameter
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const careerPath = queryParams.get('careerPath');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchScheduleAndTasks = async () => {
@@ -20,14 +19,17 @@ function Schedule() {
 
       // Fetch schedule data
       const scheduleFileName = `${careerPath}-schedule.json`;
-      const scheduleFilePath = `/path/to/schedules/${scheduleFileName}`;
+      const scheduleFilePath = `/mocks/${scheduleFileName}`;
 
       try {
         const scheduleResponse = await fetch(scheduleFilePath);
         if (scheduleResponse.ok) {
-          const scheduleData = await scheduleResponse.json();
-          setScheduleData(scheduleData.schedule || []);
-          setAnalysis(scheduleData.analysis || '');
+          const scheduleJson = await scheduleResponse.json();
+          if (scheduleJson.success) {
+            setScheduleData(scheduleJson.data.schedule || []);
+          } else {
+            console.error('Failed to fetch schedule data:', scheduleJson.message);
+          }
         } else {
           console.error('Failed to fetch schedule data:', scheduleResponse.statusText);
         }
@@ -37,13 +39,17 @@ function Schedule() {
 
       // Fetch tasks data
       const tasksFileName = `${careerPath}-task.json`;
-      const tasksFilePath = `/path/to/tasks/${tasksFileName}`;
+      const tasksFilePath = `/mocks/${tasksFileName}`;
 
       try {
         const tasksResponse = await fetch(tasksFilePath);
         if (tasksResponse.ok) {
-          const tasksData = await tasksResponse.json();
-          setTasks(tasksData.data.tasks || []);
+          const tasksJson = await tasksResponse.json();
+          if (tasksJson.success) {
+            setTasks(tasksJson.data.tasks || []);
+          } else {
+            console.error('Failed to fetch tasks data:', tasksJson.message);
+          }
         } else {
           console.error('Failed to fetch tasks data:', tasksResponse.statusText);
         }
@@ -56,53 +62,77 @@ function Schedule() {
   }, [careerPath]);
 
   const handleTaskResponseChange = (taskId, response) => {
-    // Handle task response change, e.g., save to local state or API
-    // For demo purposes, we'll mark the task as completed in local state
     setCompletedTasks((prev) => ({
       ...prev,
-      [taskId]: true,
+      [taskId]: response,
     }));
   };
 
-  const handleTaskClick = (task) => {
-    // Navigate to the task page (implementation needed)
-    navigate(`/tasks/${task.task_id}`);
+  const handleTaskClick = (taskId) => {
+    navigate(`/tasks/${taskId}`);
   };
 
   return (
-    <div className="bg-gray-200 p-4">
-      <h2 className="text-2xl font-bold mb-4">Schedule and Tasks for {careerPath}</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {scheduleData.map((item, index) => (
-          <div
-            key={index}
-            className={`flex items-center p-4 rounded cursor-pointer transition-colors ${
-              completedTasks[item.task_id] ? 'bg-green-200' : 'bg-white hover:bg-gray-100'
-            }`}
-            onClick={() => handleTaskClick(item)}
-          >
-            <div className="w-1/3">{item.time}</div>
-            <div className="w-2/3">{item.task}</div>
-          </div>
-        ))}
+    <div className="container mx-auto p-6 max-w-3xl">
+      {/* Header Section */}
+      <header className="bg-blue-500 text-white py-4 mb-6 rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold text-center">CareExpo</h1>
+      </header>
+
+      {/* Schedule Section */}
+      <div className="mb-6 border rounded-lg shadow-md p-4">
+        <h2 className="text-xl font-bold mb-4 text-center">Today's Schedule</h2>
+        <ul className="list-none">
+          {scheduleData.length > 0 ? (
+            scheduleData.map((event) => (
+              <li
+                key={event.event_id}
+                className={`mb-4 p-4 rounded-lg shadow-sm hover:bg-gray-100 ${
+                  completedTasks[event.event_id] ? 'bg-green-200' : 'bg-white'
+                }`}
+              >
+                <h3 className="text-lg font-semibold">{event.event_name}</h3>
+                <p className="text-gray-600">{event.date}</p>
+                <p>{event.description}</p>
+              </li>
+            ))
+          ) : (
+            <p className="text-gray-600 text-center">No schedule data available.</p>
+          )}
+        </ul>
       </div>
-      <h3 className="text-xl font-bold mt-6">Tasks and Descriptions</h3>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.task_id} className="mb-4">
-            <div className="font-semibold">{task.task_name}</div>
-            <p>{task.description}</p>
-            <textarea
-              placeholder="Provide your response here"
-              className="w-full mt-2 p-2 border rounded"
-              rows="4"
-              onChange={(e) => handleTaskResponseChange(task.task_id, e.target.value)}
-            />
-          </li>
-        ))}
-      </ul>
-      <h3 className="text-xl font-bold mt-6">Analysis</h3>
-      <p>{analysis}</p>
+
+      {/* Tasks Section */}
+      <div>
+        <h2 className="text-xl font-bold mb-4 text-center">Tasks and Descriptions</h2>
+        <ul className="list-none">
+          {tasks.length > 0 ? (
+            tasks.map((task) => (
+              <li
+                key={task.task_id}
+                className="mb-6 p-4 bg-white rounded-lg shadow-md"
+              >
+                <h3 className="text-lg font-semibold">{task.task_name}</h3>
+                <p>{task.description}</p>
+                <textarea
+                  placeholder="Provide your response here"
+                  className="border rounded p-2 w-full mt-2"
+                  rows="4"
+                  onChange={(e) => handleTaskResponseChange(task.task_id, e.target.value)}
+                />
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600"
+                  onClick={() => handleTaskClick(task.task_id)}
+                >
+                  View Details
+                </button>
+              </li>
+            ))
+          ) : (
+            <p className="text-gray-600 text-center">No tasks available.</p>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -23,7 +23,6 @@ function Signuppage() {
 
   return (
     <div>
-      <NavBar />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto shadow-sm rounded-lg overflow-hidden bg-gray-50">
           <div className="text-center p-6">
