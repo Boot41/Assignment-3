@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Tasks retrieved successfully",
+    "data": {
+      "tasks": [
+        {
+          "task_id": "1",
+          "task_name": "Complete first draft",
+          "description": "Finish the first draft of the manuscript.",
+          "deadline": "2024-08-01"
+        },
+        {
+          "task_id": "2",
+          "task_name": "Edit manuscript",
+          "description": "Revise the manuscript based on initial feedback.",
+          "deadline": "2024-09-01"
+        },
+        {
+          "task_id": "3",
+          "task_name": "Submit to publisher",
+          "description": "Submit the final draft to the publisher.",
+          "deadline": "2024-10-01"
+        }
+      ]
+    }
+  }
+  

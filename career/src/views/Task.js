@@ -1,34 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function CareerFitAnalysis() {
-  const chartData = [
-    { label: 'Situation Judgement', me: 10, others: 15 },
-    { label: 'Decision Making', me: 12, others: 14 },
-    { label: 'Emotional Intelligence', me: 18, others: 12 },
-  ];
+function TaskPage() {
+  const { task_id } = useParams();
+  const [task, setTask] = useState(null);
+  const [response, setResponse] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      // Fetch task data based on task_id
+      const tasksFilePath = `/mocks{}-task.json`;
+      try {
+        const tasksResponse = await fetch(tasksFilePath);
+        if (tasksResponse.ok) {
+          const tasksJson = await tasksResponse.json();
+          if (tasksJson.success) {
+            const foundTask = tasksJson.data.tasks.find(t => t.task_id === task_id);
+            setTask(foundTask || null);
+          } else {
+            console.error('Failed to fetch task data:', tasksJson.message);
+          }
+        } else {
+          console.error('Failed to fetch task data:', tasksResponse.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching task data:', error);
+      }
+    };
+
+    fetchTask();
+  }, [task_id]);
+
+  const handleResponseChange = (e) => {
+    setResponse(e.target.value);
+  };
+
+  const handleCompleteTask = () => {
+    // Handle task completion logic here, e.g., saving the response
+    navigate(`/schedule?careerPath=${task?.careerPath}`);
+  };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Career Fit Analysis</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {chartData.map((data, index) => (
-          <div key={index} className="flex items-center">
-            <p className="text-gray-600">{data.label}</p>
-            <div className="flex-grow">
-              <div className="bg-gray-300 h-4 rounded-full">
-                <div className="bg-blue-500 h-4 rounded-full" style={{ width: `${(data.me / 25) * 100}%` }} />
-              </div>
-            </div>
-            <p className="text-gray-600 ml-2">{data.others}</p>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-end">
-        <div className="bg-blue-500 text-white rounded-full p-2">76%</div>
-        <div className="ml-4 bg-gray-300 text-gray-700 rounded-full p-2">24%</div>
-      </div>
+    <div className="bg-gray-100 p-4">
+      <h2 className="text-2xl font-bold mb-4">Task</h2>
+      {task ? (
+        <div>
+          <div className="font-semibold">{task.task_name}</div>
+          <p>{task.description}</p>
+          <textarea
+            placeholder="Provide your response here"
+            className="w-full mt-2 p-2 border rounded"
+            rows="4"
+            value={response}
+            onChange={handleResponseChange}
+          />
+          <button
+            className="mt-4 p-2 bg-blue-500 text-white rounded"
+            onClick={handleCompleteTask}
+          >
+            Complete Task
+          </button>
+        </div>
+      ) : (
+        <p>Task not found.</p>
+      )}
     </div>
   );
 }
 
-export default CareerFitAnalysis;
+export default TaskPage;

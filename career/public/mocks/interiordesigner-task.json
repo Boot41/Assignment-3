@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Tasks retrieved successfully",
+    "data": {
+      "tasks": [
+        {
+          "task_id": "1",
+          "task_name": "Client consultation",
+          "description": "Consult with the client to understand their needs and preferences.",
+          "deadline": "2024-07-20"
+        },
+        {
+          "task_id": "2",
+          "task_name": "Design layout",
+          "description": "Create detailed layout and design plans for the client.",
+          "deadline": "2024-08-20"
+        },
+        {
+          "task_id": "3",
+          "task_name": "Oversee installation",
+          "description": "Oversee the installation of design elements and ensure client satisfaction.",
+          "deadline": "2024-09-20"
+        }
+      ]
+    }
+  }
+  

@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Schedule retrieved successfully",
+    "data": {
+      "schedule": [
+        {
+          "event_id": "1",
+          "event_name": "Writing Workshop",
+          "description": "Participate in a writing workshop to improve skills.",
+          "date": "2024-08-05"
+        },
+        {
+          "event_id": "2",
+          "event_name": "Literary Festival",
+          "description": "Attend the annual literary festival.",
+          "date": "2024-09-10"
+        },
+        {
+          "event_id": "3",
+          "event_name": "Book Launch",
+          "description": "Launch event for the new book release.",
+          "date": "2024-10-15"
+        }
+      ]
+    }
+  }
+  

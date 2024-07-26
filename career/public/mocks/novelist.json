@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "Analysis retrieved successfully",
+    "data": {
+      "user": {
+        "id": "1",
+        "name": "John Doe",
+        "score": 75,
+        "role": "Novelist"
+      },
+      "comparison": [
+        {
+          "role": "Novelist",
+          "average_score": 75,
+          "user_score": 75,
+          "percentage_above_average": 0
+        }
+      ]
+    }
+  }
+  

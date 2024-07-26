@@ -1,0 +1,27 @@
+{
+    "success": true,
+    "message": "Schedule retrieved successfully",
+    "data": {
+      "schedule": [
+        {
+          "event_id": "1",
+          "event_name": "Design Expo",
+          "description": "Showcase designs at the annual design expo.",
+          "date": "2024-08-10"
+        },
+        {
+          "event_id": "2",
+          "event_name": "Client Presentation",
+          "description": "Present design plans to a major client.",
+          "date": "2024-09-15"
+        },
+        {
+          "event_id": "3",
+          "event_name": "Project Deadline",
+          "description": "Complete and deliver the final design project.",
+          "date": "2024-10-01"
+        }
+      ]
+    }
+  }
+  

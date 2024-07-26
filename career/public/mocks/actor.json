@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "Analysis retrieved successfully",
+    "data": {
+      "user": {
+        "id": "1",
+        "name": "Alice Brown",
+        "score": 80,
+        "role": "Actor"
+      },
+      "comparison": [
+        {
+          "role": "Actor",
+          "average_score": 80,
+          "user_score": 80,
+          "percentage_above_average": 0
+        }
+      ]
+    }
+  }
+  

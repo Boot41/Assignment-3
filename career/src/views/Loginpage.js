@@ -1,4 +1,3 @@
-// src/views/LoginPage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockLogin } from '../services/api';
@@ -10,11 +9,10 @@ function LoginPage() {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   useEffect(() => {
-    // On component mount, check if user is in localStorage
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setEmail(user.email);
-      // Optionally redirect or auto-login
+     
     }
   }, []);
 
@@ -30,8 +28,7 @@ function LoginPage() {
         // Save the authentication token (if applicable)
         localStorage.setItem('authToken', response.data.token);
 
-        // Redirect the user to another page (e.g., home page)
-        navigate('/home');
+        navigate('/career');
       } else {
         console.log('Login failed:', response.message);
         // Handle login failure (e.g., show error message)

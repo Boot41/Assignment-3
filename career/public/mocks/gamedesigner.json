@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "message": "Analysis retrieved successfully",
+    "data": {
+      "user": {
+        "id": "1",
+        "name": "Jane Smith",
+        "score": 85,
+        "role": "Game Designer"
+      },
+      "comparison": [
+        {
+          "role": "Game Designer",
+          "average_score": 75,
+          "user_score": 85,
+          "percentage_above_average": 13.33
+        }
+      ]
+    }
+  }
+  

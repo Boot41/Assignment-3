@@ -1,28 +1,32 @@
-// src/routes.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginPage from './views/Loginpage';
-import LandingPage from './views/LandingPage';
+import { Routes, Route } from 'react-router-dom';
 import Signuppage from './views/Signuppage';
+import LoginPage from './views/Loginpage'; // Ensure the filename matches
+import LandingPage from './views/LandingPage';
 import CareerPath from './views/CareerPath';
-import Schedule from './views/schedule';
+import CareerFitAnalysis from './views/CareerFitAnalysis';
+import Schedule from './views/Schedule'; // Ensure capitalization matches component
 import Task from './views/Task';
-import NavBar from './components/NavBar'; // Adjust the import path if needed
+import NavBar from './components/NavBar' // Ensure the path is correct
+import ProtectedRoute from './components/ProtectedRoute';
+import Schedule1 from './views/Schedule1';
 
 function AppRoutes() {
+  // No need to get isLoggedIn here if it's not used
   return (
-    <Router>
-      <NavBar /> {/* Include NavBar if you want it to be present on all pages */}
+    <>
+    <NavBar /> {/* Include NavBar if you want it to be present on all pages */}
       <Routes>
-        <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<Signuppage />} />
-        <Route path="/careerpath" element={<CareerPath/>}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/career" element={<ProtectedRoute><CareerPath /></ProtectedRoute>} />
         <Route path="/landingpage" element={<LandingPage />} />
-        <Route path="/task" element={<Task/>} />
-        <Route path="/schedule" element ={<Schedule/>} />
-        {/* Add more routes as needed */}
+        <Route path="/task" element={<Task />} />
+        <Route path="/schedule" element={<Schedule />} /> 
+        <Route path="/analysis"  element={<CareerFitAnalysis />} />
+        <Route path="/trial"  element={<Schedule1 />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 

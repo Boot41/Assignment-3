@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import NavBar from '../components/NavBar'; // Ensure the import path is correct
+import NavBar from '../components/NavBar';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Signuppage() {
   const [name, setName] = useState('');
@@ -7,14 +8,21 @@ function Signuppage() {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    // Simulate saving user data to browser local storage
+    const userData = { name, email, password, dateOfBirth };
+    localStorage.setItem('user', JSON.stringify(userData));
+
+    // Navigate to the login page after successful signup
+    navigate('/login');
   };
 
   return (
     <div>
-      <NavBar />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto shadow-sm rounded-lg overflow-hidden bg-gray-50">
           <div className="text-center p-6">
@@ -32,7 +40,7 @@ function Signuppage() {
                   placeholder="Jiara Martins"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -45,7 +53,7 @@ function Signuppage() {
                   placeholder="hello@reallygreatsite.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -58,7 +66,7 @@ function Signuppage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400"
                 />
               </div>
               <div className="mb-4">
@@ -70,7 +78,7 @@ function Signuppage() {
                   type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
-                  className="shadow appearance-none border rounded-w-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                  className="shadow appearance-none border rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                 />
               </div>
               <div className="flex items-center justify-center mt-4">
@@ -82,6 +90,14 @@ function Signuppage() {
                 </button>
               </div>
             </form>
+            <div className="text-center mt-4">
+              <p className="text-gray-700">
+                Already a user?{' '}
+                <Link to="/login" className="text-blue-500 hover:text-blue-700">
+                  Login
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>

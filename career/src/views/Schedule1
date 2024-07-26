@@ -1,0 +1,133 @@
+import React, { useEffect, useState } from 'react';
+
+const Schedule1 = () => {
+  const [scheduleData, setScheduleData] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState({});
+
+  useEffect(() => {
+    // Hardcoded tasks data
+    const tasksJson = {
+      "success": true,
+      "message": "Tasks retrieved successfully",
+      "data": {
+        "tasks": [
+          {
+            "task_id": "1",
+            "task_name": "Design game mechanics",
+            "description": "Develop and document the core game mechanics.",
+            "deadline": "2024-08-15"
+          },
+          {
+            "task_id": "2",
+            "task_name": "Create prototypes",
+            "description": "Build prototypes to test gameplay and mechanics.",
+            "deadline": "2024-09-15"
+          },
+          {
+            "task_id": "3",
+            "task_name": "User testing",
+            "description": "Conduct user testing and gather feedback.",
+            "deadline": "2024-10-15"
+          }
+        ]
+      }
+    };
+    setTasks(tasksJson.data.tasks || []);
+
+    // Hardcoded schedule data (replace with your actual data if available)
+    const scheduleJson = {
+      "success": true,
+      "message": "Schedule retrieved successfully",
+      "data": {
+        "schedule": [
+          {
+            "event_id": "1",
+            "event_name": "Morning Standup",
+            "description": "Daily team meeting to discuss progress and blockers.",
+            "date": "2024-07-25"
+          },
+          {
+            "event_id": "2",
+            "event_name": "Design Review",
+            "description": "Review game design progress and feedback.",
+            "date": "2024-07-25"
+          },
+          {
+            "event_id": "3",
+            "event_name": "Development Sprint",
+            "description": "Focus on developing game mechanics.",
+            "date": "2024-07-25"
+          }
+        ]
+      }
+    };
+    setScheduleData(scheduleJson.data.schedule || []);
+  }, []); 
+
+  const renderTasks = (taskList) => (
+    <div className="space-y-8">
+      {taskList.map((task) => (
+        <div key={task.task_id} className="bg-gradient-to-r from-blue-200 to-white p-4 rounded-lg shadow-md">
+          <h3 className="text-xl font-semibold mb-2">{task.task_name}</h3>
+          <p>{task.description}</p>
+          <p className="mt-2"><strong>Deadline:</strong> {task.deadline}</p>
+          <textarea
+            placeholder="Provide your response here"
+            className="border rounded p-2 w-full mt-2"
+            rows="4"
+            onChange={(e) => handleTaskResponseChange(task.task_id, e.target.value)}
+          />
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderSchedule = (scheduleList) => (
+    <div className="space-y-8">
+      {scheduleList.map((event) => (
+        <div key={event.event_id} className="bg-gradient-to-r from-blue-200 to-white p-4 rounded-lg shadow-md">
+          <h3 className="text-xl font-semibold mb-2">{event.event_name}</h3>
+          <p>{event.description}</p>
+          <p className="mt-2"><strong>Date:</strong> {event.date}</p>
+          <div
+            className={`text-lg ${
+              completedTasks[event.event_id] ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
+            {completedTasks[event.event_id] ? '✓' : '✗'}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div style={{
+      background: 'linear-gradient(to bottom, #E6EFFD, #B9D3FD)',
+      minHeight: '100vh',
+      margin: '0',
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: '100vw',
+    }} className="p-8 bg-gray-100 min-h-screen">
+      <h2 className="text-3xl font-bold mb-8">Today's Schedule</h2>
+      {scheduleData.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <section className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 className="text-2xl font-bold mb-4">Today's Events</h3>
+            {renderSchedule(scheduleData)}
+          </section>
+          <section className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 className="text-2xl font-bold mb-4">Tasks and Descriptions</h3>
+            {renderTasks(tasks)}
+          </section>
+        </div>
+      ) : (
+        <p className="text-gray-700">Loading schedule and tasks...</p>
+      )}
+    </div>
+  );
+};
+
+export default Schedule1;
