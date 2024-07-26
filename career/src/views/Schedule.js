@@ -7,7 +7,7 @@ function Schedule() {
 
   useEffect(() => {
     const fetchScheduleAndTasks = async () => {
-      // Define careerPath directly for this example, replace with your logic if needed
+
       const careerPath = 'your-career-path';
 
       if (!careerPath) {
@@ -70,9 +70,7 @@ function Schedule() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-yellow-50 flex items-center justify-center p-6">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg">
         {/* Header Section */}
-        <header className="bg-blue-500 text-white py-4 mb-6 rounded-lg shadow-md">
-          <h1 className="text-2xl font-bold text-center">CareExpo</h1>
-        </header>
+
 
         {/* Schedule Section */}
         <div className="mb-6 border rounded-lg shadow-md p-4 bg-yellow-50">

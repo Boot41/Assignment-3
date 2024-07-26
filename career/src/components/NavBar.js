@@ -11,7 +11,7 @@ function NavBar() {
 
       {/* Navigation Links */}
       <div className="flex space-x-4">
-        <Link to="/landingpage" className="hover:text-gray-300">Home</Link>
+        <Link to="/career" className="hover:text-gray-300">Home</Link>
         <Link to="/schedule" className="hover:text-gray-300">Schedule</Link>
         <Link to="/task" className="hover:text-gray-300">Task</Link>
         <Link to="/analysis" className="hover:text-gray-300">Analysis</Link>

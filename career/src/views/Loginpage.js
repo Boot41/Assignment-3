@@ -9,7 +9,6 @@ function LoginPage() {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   useEffect(() => {
-    // On component mount, check if user is in localStorage
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       setEmail(user.email);
