@@ -1,11 +1,19 @@
+// src/services/api.js
+
 // Mock login function that validates user credentials against mock data
 export const mockLogin = async (email, password) => {
   try {
     // Fetch mock users data
-    const response = await fetch('/mock/login-response.json'); // Updated path
+    const response = await fetch('/mocks/login-response.json'); // Ensure this path is correct
     if (!response.ok) {
       throw new Error('Failed to fetch mock users data');
     }
+
+    const contentType = response.headers.get('Content-Type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Response is not JSON');
+    }
+
     const mockUsers = await response.json();
 
     // Find the user with the matching email and password
@@ -42,11 +50,17 @@ export const mockLogin = async (email, password) => {
 // Function to fetch career data from a mock data file
 export const getCareerData = async () => {
   try {
-    // Replace '/mockData.json' with the correct path to your mock data file
-    const response = await fetch('/mock/mockData.json'); // Ensure path is correct
+    // Fetch career data
+    const response = await fetch('/mocks/career-response.json'); // Ensure this path is correct
     if (!response.ok) {
       throw new Error('Failed to fetch career data');
     }
+
+    const contentType = response.headers.get('Content-Type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Response is not JSON');
+    }
+
     const data = await response.json();
     return data;
   } catch (error) {

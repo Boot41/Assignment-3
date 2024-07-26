@@ -1,57 +1,77 @@
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { mockLogin } from '../services/api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const { login } = useAuth();
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    login(email, password, rememberMe);
+  useEffect(() => {
+    // On component mount, check if user is in localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setEmail(user.email);
+     
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await mockLogin(email, password);
+      if (response.success) {
+        console.log('Login successful:', response.data);
+        if (rememberMe) {
+          localStorage.setItem('user', JSON.stringify({ email }));
+        }
+        // Save the authentication token (if applicable)
+        localStorage.setItem('authToken', response.data.token);
+
+        navigate('/career');
+      } else {
+        console.log('Login failed:', response.message);
+        // Handle login failure (e.g., show error message)
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle error (e.g., show error message)
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">Login</h1>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <input
-              type="email"
-              className="border border-gray-300 rounded-md p-4 w-full text-gray-700"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              className="border border-gray-300 rounded-md p-4 w-full text-gray-700"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center mb-6">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
-              className="form-checkbox h-5 w-5 text-blue-500"
-            />
-            <label className="ml-2 text-gray-700">Remember Me</label>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
-          >
-            Login
-          </button>
-        </form>
-      </div>
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gray-100">
+      {/* Responsive form */}
+      <form className="p-6 bg-white rounded shadow-md w-full md:w-1/3" onSubmit={handleSubmit}>
+        <h2 className="text-lg font-bold mb-4">Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mb-4 p-2 border rounded w-full"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="mb-4 p-2 border rounded w-full"
+        />
+        <label className="inline-flex items-center mb-4">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="form-checkbox"
+          />
+          <span className="ml-2">Remember Me</span>
+        </label>
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+          Login
+        </button>
+      </form>
     </div>
   );
 }

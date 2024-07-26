@@ -10,7 +10,7 @@ function TaskPage() {
   useEffect(() => {
     const fetchTask = async () => {
       // Fetch task data based on task_id
-      const tasksFilePath = `/path/to/tasks/${task_id}-task.json`;
+      const tasksFilePath = `/mocks{}-task.json`;
       try {
         const tasksResponse = await fetch(tasksFilePath);
         if (tasksResponse.ok) {
